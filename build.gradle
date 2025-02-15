@@ -21,6 +21,16 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	implementation 'edu.stanford.nlp:stanford-corenlp:4.5.4'
+	implementation 'edu.stanford.nlp:stanford-corenlp:4.5.4:models'
+	implementation 'com.google.guava:guava:32.0.1-jre'
+
+	compileOnly 'org.projectlombok:lombok:1.18.36'
+	annotationProcessor 'org.projectlombok:lombok:1.18.36'
+
+	testCompileOnly 'org.projectlombok:lombok:1.18.36'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.36'
 }
 
 tasks.named('test') {

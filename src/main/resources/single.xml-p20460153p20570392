@@ -1,0 +1,46 @@
+<page>
+    <title>File:Modern Woman.jpg</title>
+    <ns>6</ns>
+    <id>20460171</id>
+    <revision>
+        <id>1108228975</id>
+        <parentid>519039893</parentid>
+        <timestamp>2022-09-03T06:34:13Z</timestamp>
+        <contributor>
+            <username>QuasyBoy</username>
+            <id>1495172</id>
+        </contributor>
+        <comment>added [[Category:Billy Joel album covers]] using [[WP:HC|HotCat]]</comment>
+        <origin>1108228975</origin>
+        <model>wikitext</model>
+        <format>text/x-wiki</format>
+        <text bytes="778" sha1="hsbhcpagua2whik8jmbu0341jsjlezy" xml:space="preserve">== Summary ==
+{{Non-free use rationale album cover| Article           = Modern Woman
+| Use               = Infobox
+&lt;!-- ADDITIONAL INFORMATION --&gt;
+| Name              = Modern Woman
+| Artist            = Billy Joel
+| Label             = [[Columbia Records|Columbia]]
+| Graphic Artist    =
+| Item              =
+| Type              = single
+| Website           =
+| Owner             =
+| Commentary        =
+&lt;!--OVERRIDE FIELDS --&gt;
+| Description       =
+| Source            =
+| Portion           =
+| Low_resolution    =
+| Purpose           = &lt;!-- Must be specified if Use is not Infobox / Header / Section / Artist --&gt;
+| Replaceability    =
+| other_information =
+}}
+== Licensing: ==
+{{Non-free album cover|image has rationale=yes}}
+
+[[Category:Billy Joel album covers]]
+        [[Category:Billy Joel whatttttt covers]] </text>
+        <sha1>hsbhcpagua2whik8jmbu0341jsjlezy</sha1>
+    </revision>
+</page>
