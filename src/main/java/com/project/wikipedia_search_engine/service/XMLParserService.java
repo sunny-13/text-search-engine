@@ -9,6 +9,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -37,6 +38,7 @@ public class XMLParserService {
             if(isNull(reader)) return;
 
             /* INITIALIZING VARIABLES */
+            List<String> intermediateIndexFilePathList = new ArrayList<>();
             Map<String, String> docIdToTitleMap = new TreeMap<>();
             Map<String, List<FrequencyModel>> wordToFrequencyMapList = new TreeMap<>();
             String currentElement = null;
@@ -48,7 +50,7 @@ public class XMLParserService {
             StringBuilder currentBodyText = new StringBuilder();
             String bodyText = null;
             int pageCount = 0; /* Refers to the numbers of pages in xml dump <page> .... </page> */
-            int intermediateIndexFilesCount = 0;
+            int intermediateIndexFilesCount = 1;
 
             while (reader.hasNext()) {
                 int event = reader.next();
@@ -60,6 +62,7 @@ public class XMLParserService {
                             currentDocId.setLength(0);
                             currentTitle.setLength(0);
                             currentBodyText.setLength(0);
+                            idFetched = false;
                         }
                         break;
                     case XMLStreamReader.CHARACTERS:
@@ -86,6 +89,7 @@ public class XMLParserService {
                             } else if (TEXT.equals(currentElement)) {
                                 bodyText = currentBodyText.toString();
                             } else if (PAGE.equals(currentElement)) {
+                                docIdToTitleMap.put(docId, title);
                                 textProcessorService.processPage(wordToFrequencyMapList, docId, title, bodyText);
                                 pageCount++;
                             }
@@ -93,13 +97,16 @@ public class XMLParserService {
                         break;
                 }
                 if (pageCount == PAGE_COUNT_PER_WRITE) {
-                    indexWriterService.createIntermediateIndexFile(wordToFrequencyMapList, intermediateIndexFilesCount);
+                    String intermediateIndexFilePath = indexWriterService.createIntermediateIndexFile(wordToFrequencyMapList, intermediateIndexFilesCount);
                     intermediateIndexFilesCount++;
+                    intermediateIndexFilePathList.add(intermediateIndexFilePath);
                     pageCount = 0;
                     wordToFrequencyMapList.clear();
                     wordToFrequencyMapList = new TreeMap<>();
                 }
             }
+            indexWriterService.createFinalIndexFile(intermediateIndexFilePathList);
+
         } catch (Exception ex) {
             System.out.println("file not found");
             System.out.println(ex);

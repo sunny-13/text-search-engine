@@ -1,3 +1,4 @@
+<siteinfo>
 <page>
     <title>File:Modern Woman.jpg</title>
     <id>20460171</id>
@@ -15,3 +16,21 @@ More details go here.
         <sha1>hsbhcpagua2whik8jmbu0341jsjlezy</sha1>
     </revision>
 </page>
+<page>
+<title>Modern Woman</title>
+<id>204</id>
+<revision>
+    <text bytes="778" sha1="hsbhcpagua2whik8jmbu0341jsjlezy" xml:space="preserve">
+== introduction ==
+Hello
+
+== history ==
+This is some historical information.
+
+== details ==
+More details go here.
+        </text>
+    <sha1>hsbhcpagua2whik8jmbu0341jsjlezy</sha1>
+</revision>
+</page>
+</siteinfo>
