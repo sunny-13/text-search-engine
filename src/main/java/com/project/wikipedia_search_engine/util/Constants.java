@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 
 public class Constants {
 
+    public static final String EMPTY_STRING = "";
     public static final ImmutableList<String> STOP_WORDS = ImmutableList.of(
             "a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any", "are", "aren't",
             "aren't", "as", "at", "be", "because", "been", "before", "being", "below", "between", "both", "but",
@@ -29,4 +30,5 @@ public class Constants {
     );
     public static final String FINAL_INDEX_FILE_PATH = "src/main/resources/finalIndex.txt";
     public static final String INDEX_OFFSET_FILE_PATH = "src/main/resources/offset.txt";
+    public static final String DOC_ID_TITLE_FILE_PATH = "src/main/resources/docIdTitleMap.txt";
 }

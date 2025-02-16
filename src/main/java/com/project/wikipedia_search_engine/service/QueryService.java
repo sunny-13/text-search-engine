@@ -75,5 +75,4 @@ public class QueryService {
         }
         return -1; /* Word not found */
     }
-
 }

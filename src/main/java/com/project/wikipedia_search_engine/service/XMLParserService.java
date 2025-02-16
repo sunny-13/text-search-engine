@@ -31,6 +31,8 @@ public class XMLParserService {
     private TextProcessorService textProcessorService;
     @Autowired
     private IndexWriterService indexWriterService;
+    @Autowired
+    private DocIdTitleManagerService docIdTitleManagerService;
 
     public void parseXMLFile() {
         try {
@@ -106,6 +108,7 @@ public class XMLParserService {
                 }
             }
             indexWriterService.createFinalIndexAndOffsetFile(intermediateIndexFilePathList);
+            docIdTitleManagerService.createDocIdTitleMapFile(docIdToTitleMap);
 
         } catch (Exception ex) {
             System.out.println("file not found");
