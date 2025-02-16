@@ -1,6 +1,7 @@
 package com.project.wikipedia_search_engine.service;
 
 import com.project.wikipedia_search_engine.model.FrequencyModel;
+import com.project.wikipedia_search_engine.util.Constants;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,21 @@ import static java.util.Objects.isNull;
 public class IndexWriterService {
 
     private static final String INDEX_FILES_PATH_PREFIX = "src/main/resources/intermediateIndex";
-    private static final String FINAL_INDEX_FILE_PATH = "src/main/resources/finalIndex.txt";
 
     /* Return the file name (path) that is created */
+    @Data
+    public static class FileEntry {
+        private String word;
+        private String fullLine;
+        private BufferedReader reader;
+
+        public FileEntry(String fullLine, BufferedReader reader) {
+            this.fullLine = fullLine;
+            this.reader = reader;
+            this.word = fullLine.split(" ")[0]; // Extract word (first part of line)
+        }
+    }
+
     public String createIntermediateIndexFile(Map<String, List<FrequencyModel>> wordToFrequencyMapList, int intermediateIndexFilesCount) {
         System.out.println("createIntermediateIndexFile");
         String filePath = INDEX_FILES_PATH_PREFIX + intermediateIndexFilesCount + ".txt";
@@ -37,14 +50,16 @@ public class IndexWriterService {
         }
         return filePath;
     }
-
     /* Merges all the index files together and then creates one final Index file for faster retrieval
     * Uses K-Sort merge */
-    public void createFinalIndexFile(List<String> intermediateIndexFilePathList) {
+
+    public void createFinalIndexAndOffsetFile(List<String> intermediateIndexFilePathList) {
         var minHeap = new PriorityQueue<FileEntry>(Comparator.comparing(FileEntry::getWord));
         List<BufferedReader> readers = new ArrayList<>();
+        long offset = 0;
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FINAL_INDEX_FILE_PATH))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Constants.FINAL_INDEX_FILE_PATH));
+             BufferedWriter offsetWriter = new BufferedWriter(new FileWriter(Constants.INDEX_OFFSET_FILE_PATH))) {
             for (String intermediateIndexFilePath : nullSafeList(intermediateIndexFilePathList)) {
                 BufferedReader reader = new BufferedReader(new FileReader(intermediateIndexFilePath));
                 readers.add(reader);
@@ -67,12 +82,20 @@ public class IndexWriterService {
                     mergedLine = new StringBuilder(data);
                 } else if (!currentWord.equals(word)) {
                     /* Write the previous merged entry to file */
-                    writer.write(currentWord + " " + mergedLine.toString().trim());
+                    String finalLine = currentWord + " " + mergedLine.toString().trim();
+                    writer.write(finalLine);
                     writer.newLine();
 
-                    /* Start merging for the new word */
+                    /* Write offset for the word */
+                    offsetWriter.write(currentWord + " " + offset);
+                    offsetWriter.newLine();
+
+                    /* Write index for the current word */
                     currentWord = word;
                     mergedLine = new StringBuilder(data);
+
+                    /* Update offset variable */
+                    offset += finalLine.getBytes().length + System.lineSeparator().getBytes().length;
                 } else {
                     /* Same word found in another file, concatenate its frequencyModel data */
                     mergedLine.append(" ").append(data);
@@ -88,6 +111,8 @@ public class IndexWriterService {
             if (isNotBlankString(currentWord)) {
                 writer.write(currentWord + " " + mergedLine.toString().trim());
                 writer.newLine();
+                offsetWriter.write(currentWord + " " + offset);
+                offsetWriter.newLine();
             }
 
         } catch (IOException e) {
@@ -99,19 +124,6 @@ public class IndexWriterService {
                     reader.close();
                 } catch (IOException ignored) {}
             }
-        }
-    }
-
-    @Data
-    public static class FileEntry {
-        private String word;
-        private String fullLine;
-        private BufferedReader reader;
-
-        public FileEntry(String fullLine, BufferedReader reader) {
-            this.fullLine = fullLine;
-            this.reader = reader;
-            this.word = fullLine.split(" ")[0]; // Extract word (first part of line)
         }
     }
 }

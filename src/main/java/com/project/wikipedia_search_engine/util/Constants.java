@@ -27,4 +27,6 @@ public class Constants {
             "you", "you", "you", "you", "yourself", "yourself", "yourself", ".", ",", ";", ":", "!", "?", "(", ")", "{", "}", "[", "]",
             "'", "-", "_", "…", "–", "—"
     );
+    public static final String FINAL_INDEX_FILE_PATH = "src/main/resources/finalIndex.txt";
+    public static final String INDEX_OFFSET_FILE_PATH = "src/main/resources/offset.txt";
 }

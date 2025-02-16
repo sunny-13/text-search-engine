@@ -105,7 +105,7 @@ public class XMLParserService {
                     wordToFrequencyMapList = new TreeMap<>();
                 }
             }
-            indexWriterService.createFinalIndexFile(intermediateIndexFilePathList);
+            indexWriterService.createFinalIndexAndOffsetFile(intermediateIndexFilePathList);
 
         } catch (Exception ex) {
             System.out.println("file not found");

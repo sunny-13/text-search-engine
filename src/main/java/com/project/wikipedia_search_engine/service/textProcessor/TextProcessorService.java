@@ -63,7 +63,7 @@ public class TextProcessorService {
             Integer occurrenceInReferences = referencesWordsFreqeuncyMap.getOrDefault(word, 0);
             Integer occurrenceInBody = bodyWordsFreqeuncyMap.getOrDefault(word, 0);
             FrequencyModel wordFrequencyModel = FrequencyModel.builder()
-                    .docId(docId).titleFrequency(occurrenceInTitle).categoryFrequency(occurrenceInCategory)
+                    .docId(Integer.parseInt(docId)).titleFrequency(occurrenceInTitle).categoryFrequency(occurrenceInCategory)
                     .externalLinksFrequency(occurrenceInExternalLinks).referencesFrequency(occurrenceInReferences)
                     .bodyFrequency(occurrenceInBody).build();
             List<FrequencyModel> wordExistingFrequencyModelList = nonNull(wordToFrequencyMapList.get(word))
