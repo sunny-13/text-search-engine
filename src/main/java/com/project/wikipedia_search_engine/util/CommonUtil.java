@@ -1,6 +1,9 @@
 package com.project.wikipedia_search_engine.util;
 
+import com.project.wikipedia_search_engine.service.SearchEngineService;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static java.util.Objects.isNull;
@@ -28,5 +31,13 @@ public class CommonUtil {
 
     public static boolean isNotBlankString(String text) {
         return !isBlankString(text);
+    }
+
+    public static <T> boolean isEmptyList(List<T> list) {
+        return isNull(list) || list.isEmpty();
+    }
+
+    public static Integer notNullAmount(Integer integer) {
+        return isNull(integer) ? 0 : integer;
     }
 }

@@ -1,5 +1,6 @@
 package com.project.wikipedia_search_engine.service;
 
+import com.project.wikipedia_search_engine.model.bean.GlobalDocBean;
 import com.project.wikipedia_search_engine.model.FrequencyModel;
 import com.project.wikipedia_search_engine.service.textProcessor.TextProcessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,8 @@ public class XMLParserService {
     private IndexWriterService indexWriterService;
     @Autowired
     private DocIdTitleManagerService docIdTitleManagerService;
+    @Autowired
+    private GlobalDocBean globalDocBean;
 
     public void parseXMLFile() {
         try {
@@ -42,6 +45,7 @@ public class XMLParserService {
             /* INITIALIZING VARIABLES */
             List<String> intermediateIndexFilePathList = new ArrayList<>();
             Map<String, String> docIdToTitleMap = new TreeMap<>();
+            Integer totalDocCount = 0;
             Map<String, List<FrequencyModel>> wordToFrequencyMapList = new TreeMap<>();
             String currentElement = null;
             StringBuilder currentDocId = new StringBuilder();
@@ -94,6 +98,7 @@ public class XMLParserService {
                                 docIdToTitleMap.put(docId, title);
                                 textProcessorService.processPage(wordToFrequencyMapList, docId, title, bodyText);
                                 pageCount++;
+                                totalDocCount++;
                             }
                         }
                         break;
@@ -109,6 +114,7 @@ public class XMLParserService {
             }
             indexWriterService.createFinalIndexAndOffsetFile(intermediateIndexFilePathList);
             docIdTitleManagerService.createDocIdTitleMapFile(docIdToTitleMap);
+            globalDocBean.setTotalDocCount(totalDocCount);
 
         } catch (Exception ex) {
             System.out.println("file not found");

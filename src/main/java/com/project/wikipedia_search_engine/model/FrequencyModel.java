@@ -11,6 +11,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.project.wikipedia_search_engine.util.CommonUtil.isBlankString;
+import static com.project.wikipedia_search_engine.util.CommonUtil.notNullAmount;
+import static java.util.Objects.isNull;
 
 @Data
 @Builder
@@ -55,5 +57,16 @@ public class FrequencyModel {
             }
         }
         return frequencyModels;
+    }
+
+    public static Integer getTotalOccurrenceInDoc(FrequencyModel frequencyModel) {
+        Integer totalOccurrences = 0;
+        if(isNull(frequencyModel)) return totalOccurrences;
+        totalOccurrences = totalOccurrences + notNullAmount(frequencyModel.getTitleFrequency())
+                + notNullAmount(frequencyModel.getCategoryFrequency())
+                + notNullAmount(frequencyModel.getExternalLinksFrequency())
+                + notNullAmount(frequencyModel.getReferencesFrequency())
+                + notNullAmount(frequencyModel.getBodyFrequency());
+        return totalOccurrences;
     }
 }
