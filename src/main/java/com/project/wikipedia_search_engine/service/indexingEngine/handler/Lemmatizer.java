@@ -1,4 +1,4 @@
-package com.project.wikipedia_search_engine.service.textProcessor.handler;
+package com.project.wikipedia_search_engine.service.indexingEngine.handler;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;

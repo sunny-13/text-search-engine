@@ -1,4 +1,4 @@
-package com.project.wikipedia_search_engine.service;
+package com.project.wikipedia_search_engine.service.indexingEngine;
 
 import com.project.wikipedia_search_engine.model.FrequencyModel;
 import com.project.wikipedia_search_engine.util.Constants;

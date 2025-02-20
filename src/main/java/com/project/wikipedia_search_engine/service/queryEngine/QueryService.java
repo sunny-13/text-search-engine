@@ -6,7 +6,7 @@ import com.project.wikipedia_search_engine.model.bean.GlobalDocBean;
 import com.project.wikipedia_search_engine.model.dto.QueryRequestDTO;
 import com.project.wikipedia_search_engine.model.dto.QueryResponseDTO;
 import com.project.wikipedia_search_engine.model.enums.RequestField;
-import com.project.wikipedia_search_engine.service.DocIdTitleManagerService;
+import com.project.wikipedia_search_engine.service.common.DocIdTitleManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;

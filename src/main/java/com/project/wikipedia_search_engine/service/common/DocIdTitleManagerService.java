@@ -1,4 +1,4 @@
-package com.project.wikipedia_search_engine.service;
+package com.project.wikipedia_search_engine.service.common;
 
 import org.springframework.stereotype.Service;
 

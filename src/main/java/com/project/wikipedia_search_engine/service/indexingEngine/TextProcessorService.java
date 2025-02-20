@@ -1,7 +1,7 @@
-package com.project.wikipedia_search_engine.service.textProcessor;
+package com.project.wikipedia_search_engine.service.indexingEngine;
 
 import com.project.wikipedia_search_engine.model.FrequencyModel;
-import com.project.wikipedia_search_engine.service.textProcessor.handler.impl.*;
+import com.project.wikipedia_search_engine.service.indexingEngine.handler.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

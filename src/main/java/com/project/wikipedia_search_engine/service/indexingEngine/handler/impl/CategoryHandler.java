@@ -1,7 +1,7 @@
-package com.project.wikipedia_search_engine.service.textProcessor.handler.impl;
+package com.project.wikipedia_search_engine.service.indexingEngine.handler.impl;
 
-import com.project.wikipedia_search_engine.service.textProcessor.handler.Lemmatizer;
-import com.project.wikipedia_search_engine.service.textProcessor.handler.RegexHandler;
+import com.project.wikipedia_search_engine.service.indexingEngine.handler.Lemmatizer;
+import com.project.wikipedia_search_engine.service.indexingEngine.handler.RegexHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -12,11 +12,15 @@ import java.util.regex.Pattern;
 import static com.project.wikipedia_search_engine.util.CommonUtil.isBlankString;
 
 @Component
-public class ExternalLinksHandler extends Lemmatizer implements RegexHandler {
+public class CategoryHandler extends Lemmatizer implements RegexHandler {
+
+    public static CategoryHandler getInstance() {
+        return new CategoryHandler();
+    }
 
     @Override
     public String getRegexPattern() {
-        return "==External links==\\n[\\s\\S]*?\\n\\n";
+        return "\\[\\[Category:([^\\]]+)\\]\\]";
     }
 
     @Override
@@ -32,10 +36,6 @@ public class ExternalLinksHandler extends Lemmatizer implements RegexHandler {
             String matchedString = matcher.group(1);
             stringBuilder.append(matchedString).append(" ");
         }
-//        String externalLinksText = stringBuilder.substring(20);
-        String externalLinksText = stringBuilder.toString();
-        externalLinksText = externalLinksText.replace("|", " ");
-        externalLinksText = externalLinksText.replaceAll("[^a-zA-Z ]", " ");
-        return getNonStopLemmatizedWordFrequencyMap(externalLinksText);
+        return getNonStopLemmatizedWordFrequencyMap(stringBuilder.toString());
     }
 }

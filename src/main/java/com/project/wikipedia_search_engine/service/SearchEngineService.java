@@ -2,6 +2,7 @@ package com.project.wikipedia_search_engine.service;
 
 import com.project.wikipedia_search_engine.model.dto.QueryRequestDTO;
 import com.project.wikipedia_search_engine.model.dto.QueryResponseDTO;
+import com.project.wikipedia_search_engine.service.indexingEngine.XMLParserService;
 import com.project.wikipedia_search_engine.service.queryEngine.QueryServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

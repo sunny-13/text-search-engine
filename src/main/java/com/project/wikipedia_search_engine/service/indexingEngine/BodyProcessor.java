@@ -1,4 +1,4 @@
-package com.project.wikipedia_search_engine.service.textProcessor;
+package com.project.wikipedia_search_engine.service.indexingEngine;
 
 import org.springframework.stereotype.Component;
 

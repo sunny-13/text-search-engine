@@ -1,7 +1,7 @@
-package com.project.wikipedia_search_engine.service.textProcessor.handler.impl;
+package com.project.wikipedia_search_engine.service.indexingEngine.handler.impl;
 
-import com.project.wikipedia_search_engine.service.textProcessor.handler.Lemmatizer;
-import com.project.wikipedia_search_engine.service.textProcessor.handler.RegexHandler;
+import com.project.wikipedia_search_engine.service.indexingEngine.handler.Lemmatizer;
+import com.project.wikipedia_search_engine.service.indexingEngine.handler.RegexHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
