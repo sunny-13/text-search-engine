@@ -19,8 +19,8 @@ public class SearchEngineService {
     @Autowired
     private QueryServiceFactory queryServiceFactory;
     
-    public void startServer() {
-        xmlParserService.parseXMLFile();
+    public void startServer(String xmlFilePath) {
+        xmlParserService.parseXMLFile(xmlFilePath);
     }
     
     public QueryResponseDTO performQuery(QueryRequestDTO queryRequestDTO) {

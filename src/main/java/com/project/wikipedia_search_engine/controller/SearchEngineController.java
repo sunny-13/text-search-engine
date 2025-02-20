@@ -4,10 +4,7 @@ import com.project.wikipedia_search_engine.model.dto.QueryRequestDTO;
 import com.project.wikipedia_search_engine.model.dto.QueryResponseDTO;
 import com.project.wikipedia_search_engine.service.SearchEngineService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("")
@@ -16,10 +13,10 @@ public class SearchEngineController {
     @Autowired
     private SearchEngineService searchEngineService;
 
-    @GetMapping("/start-server")
-    public void startServerAndIndexing() {
+    @GetMapping("/start-indexing")
+    public void startServerAndIndexing(@RequestParam(name = "xmlFilePath") String xmlFilePath) {
         System.out.println("request-received");
-        searchEngineService.startServer();
+        searchEngineService.startServer(xmlFilePath);
         System.out.println("response-sent");
     }
 

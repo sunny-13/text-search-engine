@@ -37,9 +37,9 @@ public class XMLParserService {
     @Autowired
     private GlobalDocBean globalDocBean;
 
-    public void parseXMLFile() {
+    public void parseXMLFile(String xmlFilePath) {
         try {
-            XMLStreamReader reader = getXMLStreamReader();
+            XMLStreamReader reader = getXMLStreamReader(xmlFilePath);
             if(isNull(reader)) return;
 
             /* INITIALIZING VARIABLES */
@@ -122,9 +122,9 @@ public class XMLParserService {
         }
     }
 
-    private XMLStreamReader getXMLStreamReader() {
+    private XMLStreamReader getXMLStreamReader(String xmlFilePath) {
         try {
-            InputStream inputStream = new FileInputStream(XML_FILE_PATH);
+            InputStream inputStream = new FileInputStream(xmlFilePath);
             System.out.println("file found");
             XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
             return xmlInputFactory.createXMLStreamReader(inputStream);
