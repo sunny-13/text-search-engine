@@ -8,6 +8,7 @@ import com.project.wikipedia_search_engine.model.dto.QueryResponseDTO;
 import com.project.wikipedia_search_engine.model.enums.RequestField;
 import com.project.wikipedia_search_engine.service.queryEngine.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -20,6 +21,7 @@ import static com.project.wikipedia_search_engine.util.CommonUtil.nullSafeList;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+@Component
 public class TitleQueryService extends QueryService {
 
     @Autowired
@@ -32,6 +34,7 @@ public class TitleQueryService extends QueryService {
 
     @Override
     public QueryResponseDTO getQueryResponse(QueryRequestDTO queryRequestDTO) {
+        System.out.println("Here for title search");
         List<FrequencyModel> frequencyModelList = searchWord(queryRequestDTO.getWord());
         PriorityQueue<RelevancePair> wordRelevanceToDocIDPQ = calculateWordRelevance(frequencyModelList);
         int queryResponseSize = Math.min(queryRequestDTO.getCount(), wordRelevanceToDocIDPQ.size());
@@ -50,6 +53,9 @@ public class TitleQueryService extends QueryService {
                 .filter(Objects::nonNull)
                 .filter(frequencyModel -> nonNull(frequencyModel.getTitleFrequency()) && frequencyModel.getTitleFrequency() != 0)
                 .toList();
+        if(isEmptyList(frequencyModelListWithWordInTitle)) {
+            return new PriorityQueue<>();
+        }
         BigDecimal inverseDocumentValue = getInverseDocumentValue(frequencyModelListWithWordInTitle);
         PriorityQueue<RelevancePair> wordRelevanceToDocIDPQ = new PriorityQueue<>(RelevancePair.getComparator());
         for (FrequencyModel frequencyModel : nullSafeList(frequencyModelListWithWordInTitle)) {

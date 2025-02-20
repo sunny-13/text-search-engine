@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Arrays;
 import java.util.Map;
 
 import static com.project.wikipedia_search_engine.util.CommonUtil.isBlankString;
@@ -61,7 +62,7 @@ public class DocIdTitleManagerService {
                 if (parts.length < 2) continue;
 
                 String fetchedDocId = parts[0];
-                String fetchedTitle = parts[1];
+                String fetchedTitle = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
 
                 int cmp = fetchedDocId.compareTo(docId);
                 if (cmp == 0) {

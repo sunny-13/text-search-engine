@@ -6,9 +6,12 @@ import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
-import static com.project.wikipedia_search_engine.util.CommonUtil.*;
+import static com.project.wikipedia_search_engine.util.CommonUtil.isNotBlankString;
+import static com.project.wikipedia_search_engine.util.CommonUtil.nullSafeList;
 import static java.util.Objects.isNull;
 
 @Service
@@ -54,7 +57,7 @@ public class IndexWriterService {
     * Uses K-Sort merge */
 
     public void createFinalIndexAndOffsetFile(List<String> intermediateIndexFilePathList) {
-        var minHeap = new PriorityQueue<FileEntry>(Comparator.comparing(FileEntry::getWord));
+        var minHeap = new PriorityQueue<>(Comparator.comparing(FileEntry::getWord));
         List<BufferedReader> readers = new ArrayList<>();
         long offset = 0;
 
@@ -123,6 +126,13 @@ public class IndexWriterService {
                 try {
                     reader.close();
                 } catch (IOException ignored) {}
+                for (String intermediateIndexFilePath : nullSafeList(intermediateIndexFilePathList)) {
+                    try {
+                        Files.deleteIfExists(Paths.get(intermediateIndexFilePath));
+                    } catch (Exception e) {
+                        System.err.println("Failed to delete: " + intermediateIndexFilePath + " - " + e.getMessage());
+                    }
+                }
             }
         }
     }

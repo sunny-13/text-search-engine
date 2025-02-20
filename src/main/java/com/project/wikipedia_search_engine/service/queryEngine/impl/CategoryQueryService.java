@@ -6,6 +6,7 @@ import com.project.wikipedia_search_engine.model.dto.QueryRequestDTO;
 import com.project.wikipedia_search_engine.model.dto.QueryResponseDTO;
 import com.project.wikipedia_search_engine.model.enums.RequestField;
 import com.project.wikipedia_search_engine.service.queryEngine.QueryService;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -18,6 +19,7 @@ import static com.project.wikipedia_search_engine.util.CommonUtil.nullSafeList;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+@Component
 public class CategoryQueryService extends QueryService {
 
     @Override
@@ -45,6 +47,9 @@ public class CategoryQueryService extends QueryService {
                 .filter(Objects::nonNull)
                 .filter(frequencyModel -> nonNull(frequencyModel.getCategoryFrequency()) && frequencyModel.getCategoryFrequency() != 0)
                 .toList();
+        if(isEmptyList(frequencyModelListWithWordInCategory)) {
+            return new PriorityQueue<>();
+        }
         BigDecimal inverseDocumentValue = getInverseDocumentValue(frequencyModelListWithWordInCategory);
         PriorityQueue<RelevancePair> wordRelevanceToDocIDPQ = new PriorityQueue<>(RelevancePair.getComparator());
         for (FrequencyModel frequencyModel : nullSafeList(frequencyModelListWithWordInCategory)) {

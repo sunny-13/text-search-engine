@@ -6,6 +6,7 @@ import com.project.wikipedia_search_engine.model.dto.QueryRequestDTO;
 import com.project.wikipedia_search_engine.model.dto.QueryResponseDTO;
 import com.project.wikipedia_search_engine.model.enums.RequestField;
 import com.project.wikipedia_search_engine.service.queryEngine.QueryService;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -17,6 +18,7 @@ import static com.project.wikipedia_search_engine.util.CommonUtil.isEmptyList;
 import static com.project.wikipedia_search_engine.util.CommonUtil.nullSafeList;
 import static java.util.Objects.isNull;
 
+@Component
 public class SimpleQueryService extends QueryService {
 
     @Override
@@ -26,6 +28,7 @@ public class SimpleQueryService extends QueryService {
 
     @Override
     public QueryResponseDTO getQueryResponse(QueryRequestDTO queryRequestDTO) {
+        System.out.println("Here for simple search");
         List<FrequencyModel> frequencyModelList = searchWord(queryRequestDTO.getWord());
         PriorityQueue<RelevancePair> wordRelevanceToDocIDPQ = calculateWordRelevance(frequencyModelList);
         int queryResponseSize = Math.min(queryRequestDTO.getCount(), wordRelevanceToDocIDPQ.size());

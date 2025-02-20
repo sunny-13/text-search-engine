@@ -16,6 +16,7 @@ import java.util.*;
 
 import static com.project.wikipedia_search_engine.model.FrequencyModel.parseFrequencyModels;
 import static com.project.wikipedia_search_engine.util.CommonUtil.isNotBlankString;
+import static com.project.wikipedia_search_engine.util.CommonUtil.toLowerCase;
 import static com.project.wikipedia_search_engine.util.Constants.*;
 import static java.util.Objects.isNull;
 
@@ -33,7 +34,7 @@ public abstract class QueryService {
     public List<FrequencyModel> searchWord(String searchWord) {
         List<FrequencyModel> frequencyModelList = new ArrayList<>();
         try {
-            long offset = findOffsetBinarySearch(searchWord);
+            long offset = findOffsetBinarySearch(toLowerCase(searchWord));
             if (offset == -1) {
                 System.out.println("searchWord -> Word not found");
                 return Collections.emptyList();
@@ -45,7 +46,7 @@ public abstract class QueryService {
                 indexReader.seek(offset);  /* Jump to the exact byte offset */
                 String line = indexReader.readLine(); /* Read the full line */
                 System.out.println(line);
-                if (line == null || !line.startsWith(searchWord)) {
+                if (line == null || !line.startsWith(toLowerCase(searchWord))) {
                     return Collections.emptyList();
                 }
 
