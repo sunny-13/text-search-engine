@@ -12,3 +12,29 @@ In this project, primary task is to build a scalable and efficient search engine
   - **Stemming / Lemmatization** – Reducing words to their root forms for better indexing.
 - **Inverted Index Creation** – Constructs a posting list to map terms to document occurrences.
 - **Optimization** – Enhancing index structure for reduced storage and faster queries.
+
+### 📂 Project Structure
+``` 
+text-search-engine/
+│── src/
+│ ├──main/java/com/project/wikipedia_search_engine/
+│ │ ├── controller/ # REST controllers for indexing xml dump and searching word.
+│ │ ├── service/ # Core logic for pre-processing text, creating index files and merging them. 
+│ │ ├── model/ # Data models (GloalDocBean, Query Request/Response DTOs)
+│ │ ├── util/ # Utility methods
+│ ├── resources/
+│ │ ├── application.properties # configurations data
+│── build.gradle # Dependencies (Spring Boot, stanford-corenlp, etc.)
+```
+
+
+### ⚙️ Exposed APIs
+
+1. `{{baseUrl}}/start-indexing` → Provide XMLFilePath as `RequestParam` in the request.
+2. `{{baseUrl}}/perform-query` → Attach QueryRequestDTO as `RequestBody` in the request.
+
+### 🏗️ Setup & Installation
+### Prerequisites
+- Ensure **Java+** on your system. 
+- **Clone the repository**
+- **Build & Run the Project** (Use `./gradlew clean build`)
